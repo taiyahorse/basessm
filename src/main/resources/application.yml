@@ -1,0 +1,61 @@
+spring:
+  #数据库的连接信息：5项，这里我是mysql8的连接信息
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/mycloud?useSSL=false&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT&allowPublicKeyRetrieval=true
+    username: root
+    password: 69541319031yn
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
+    #以下省略druid的监控的一些配置。
+    druid:
+      initial-size: 5                                       # 初始化大小
+      min-idle: 10                                          # 最小连接数
+      max-active: 20                                        # 最大连接数
+      max-wait: 60000                                       # 获取连接时的最大等待时间
+      min-evictable-idle-time-millis: 300000                # 一个连接在池中最小生存的时间，单位是毫秒
+      time-between-eviction-runs-millis: 60000              # 多久才进行一次检测需要关闭的空闲连接，单位是毫秒
+      filters: stat,wall                                    # 配置扩展插件：stat-监控统计，log4j-日志，wall-防火墙（防止SQL注入），去掉后，监控界面的sql无法统计
+      validation-query: SELECT 1                            # 检测连接是否有效的 SQL语句，为空时以下三个配置均无效
+      test-on-borrow: true                                  # 申请连接时执行validationQuery检测连接是否有效，默认true，开启后会降低性能
+      test-on-return: true                                  # 归还连接时执行validationQuery检测连接是否有效，默认false，开启后会降低性能
+      test-while-idle: true                                 # 申请连接时如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效，默认false，建议开启，不影响性能
+      stat-view-servlet:
+        enabled: true                                       # 是否开启 StatViewServlet
+        allow: 127.0.0.1                                    # 访问监控页面 白名单，默认127.0.0.1
+        deny: 192.168.56.1                                  # 访问监控页面 黑名单
+        login-username: admin                               # 访问监控页面 登陆账号
+        login-password: admin                               # 访问监控页面 登陆密码
+      filter:
+        stat:
+          enabled: true                                     # 是否开启 FilterStat，默认true
+          log-slow-sql: true                                # 是否开启 慢SQL 记录，默认false
+          slow-sql-millis: 5000                             # 慢 SQL 的标准，默认 3000，单位：毫秒
+          merge-sql: false                                  # 合并多个连接池的监控数据，默认false
+
+  redis:
+    # Redis 数据库索引（默认为 0）
+    database: 0
+    # Redis 服务器地址
+    host: localhost
+    # Redis 服务器连接端口
+    port: 6379
+    password:
+    timeout: 10s
+    lettuce:
+      pool:
+        #连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 50
+        #连接池中的最大空闲连接 默认 8
+        max-idle: 8
+        #连接池中的最小空闲连接 默认 0
+        min-idle: 0
+
+mybatis:
+  #匹配sql语句的映射文件的位置，classpath代表在resources下
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  #使用type-aliases-package中指定entity扫描包类让mybatis自定扫描到自定义的entity
+  type-aliases-package: com.base.entity
+  configuration:
+    # 开启驼峰uName自动映射到u_name
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

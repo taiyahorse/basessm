@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace对应mapper接口所在的位置-->
+<mapper namespace="com.base.mapper.BookMapper">
+    <!-- 插入book对象-->
+    <insert id="addBook" parameterType="com.base.entity.Book">
+        insert into t_book(name,author) values (#{name},#{author})
+    </insert>
+
+    <insert id="addBookByParam">
+        insert into t_book(name,author) values (#{name},#{author})
+    </insert>
+
+    <delete id="delBook">
+        delete from t_bool where id=#{id}
+        <if test="name!=null">
+            and name=#{name}
+        </if>
+        <if test="author!=null">
+            and author=#{author}
+        </if>
+    </delete>
+
+    <delete id="delBookByParam">
+        delete from t_bool where id=#{id}
+    </delete>
+
+    <update id="updateBook">
+        update t_book set name=#{name},author=#{author} where id=#{id}
+    </update>
+
+    <update id="updateBookByParam">
+        update t_book set name=#{name},author=#{author} where id=#{id}
+    </update>
+
+    <select id="queryBook" resultType="com.base.entity.Book">
+        select id,name,author from t_book where id=#{id}
+        <if test="name!=null">
+            and name=#{name}
+        </if>
+        <if test="author!=null">
+            and author=#{author}
+        </if>
+    </select>
+
+    <select id="queryBookByParam" resultType="com.base.entity.Book">
+        select id,name,author from t_book where id=#{id}
+        <if test="name!=null">
+            and name=#{name}
+        </if>
+        <if test="author!=null">
+            and author=#{author}
+        </if>
+    </select>
+
+    <select id="queryAllBookByParam" resultType="com.base.entity.Book">
+        select id,name,author from t_book where id=#{id}
+        <if test="name!=null">
+            and name=#{name}
+        </if>
+        <if test="author!=null">
+            and author=#{author}
+        </if>
+    </select>
+
+    <select id="queryAllBook" resultType="com.base.entity.Book">
+        select id,name,author from t_book
+    </select>
+</mapper>
