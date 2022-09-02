@@ -52,7 +52,7 @@ public class SwaggerConfig {
                 //none:都不扫描
                 //withClassAnnotation:扫描类上的注解，参数是一个注解的反射对象
                 //withMethodAnnotation：扫描方法上的注解
-                .apis(RequestHandlerSelectors.basePackage("com.base.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.base.controller,com.base.entity"))
                 //paths():过滤扫描路径--表示只扫描如下路径的内容
                 //.paths(PathSelectors.ant("com.example.swagger2/**"))
                 .build();
@@ -62,8 +62,8 @@ public class SwaggerConfig {
         //作者信息
         Contact contact = new Contact("黄", "", "2695818931@qq.com");
         return new ApiInfo(
-                "Swagger练习",//标题
-                "常用操作的练习",//描述
+                "Swagger",//标题
+                "API接口",//描述
                 "1.0",//版本
                 "urn:tos",
                 contact,//联系人

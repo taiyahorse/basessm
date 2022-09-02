@@ -1,8 +1,11 @@
 package com.base.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel("返回类实体")
 public class ResultDTO<T> {
     public static final Integer SUCCESS_CODE_200 = 200;
     public static final Integer FAIL_CODE_500 = 500;
@@ -11,15 +14,18 @@ public class ResultDTO<T> {
     /**
      * 返回状态码
      */
+    @ApiModelProperty("返回状态码，200表示后台接收请求成功，不代表最终处理成功")
     private Integer code;
     /**
      * 返回信息
      */
+    @ApiModelProperty("成功状态码解释")
     private String message;
 
     /**
      * 返回数据
      */
+    @ApiModelProperty("本次操作，处理返回的内容")
     private T data;
 
     private ResultDTO() {

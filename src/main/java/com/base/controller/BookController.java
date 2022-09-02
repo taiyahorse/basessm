@@ -6,10 +6,11 @@ import com.base.entity.ResultDTO;
 import com.base.service.BookService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
@@ -17,12 +18,12 @@ import java.util.List;
 @RequestMapping("/book")
 public class BookController {
 
-    @Autowired
+    @Resource
     private BookService bookService;
 
     @GetMapping("/queryBook")
     @ApiOperation("传入ID、书名、作者，查询相关的书籍")
-    public Book queryBook(int id,String name,String author){
+    public ResultDTO queryBook(int id,String name,String author){
         Book book = new Book();
         if(id!=0){
             book.setId(id);
@@ -32,8 +33,7 @@ public class BookController {
         if(!StringUtils.isEmpty(author)){
             book.setAuthor(author);
         }
-//        return bookService.queryBookByParam(id,null,null);
-        return bookService.queryBook(book);
+        return ResultDTO.success(bookService.queryBook(book));
     }
 
     @GetMapping("/getAllBook")
