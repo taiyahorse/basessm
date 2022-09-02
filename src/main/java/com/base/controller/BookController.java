@@ -2,12 +2,14 @@ package com.base.controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.base.entity.Book;
+import com.base.entity.ResultDTO;
 import com.base.service.BookService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
@@ -18,7 +20,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping("/queryBook")
+    @GetMapping("/queryBook")
+    @ApiOperation("传入ID、书名、作者，查询相关的书籍")
     public Book queryBook(int id,String name,String author){
         Book book = new Book();
         if(id!=0){
@@ -33,8 +36,10 @@ public class BookController {
         return bookService.queryBook(book);
     }
 
-    @RequestMapping("/getAllBook")
-    public List<Book> queryAllBook(){
-        return bookService.queryAllBook();
+    @GetMapping("/getAllBook")
+    @ApiOperation("获取所有书籍")
+    public ResultDTO queryAllBook(){
+        List<Book> blist = bookService.queryAllBook();
+        return ResultDTO.success(blist);
     }
 }

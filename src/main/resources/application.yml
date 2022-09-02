@@ -1,8 +1,19 @@
 server:
   port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    #最大链接数
+    max-connections: 8192
+    threads:
+      #最小线程数
+      min-spare: 200
+      #最大线程数
+      max: 2400
+    #建立连接的超时时间,默认20秒，单位毫秒
+    connection-timeout: 5000
 
 spring:
-  #数据库的连接信息：5项，这里我是mysql8的连接信息
+  #数据库的连接信息：5项，这里是mysql8的连接信息
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/mycloud?useSSL=false&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT&allowPublicKeyRetrieval=true
     username: root
@@ -34,7 +45,9 @@ spring:
           log-slow-sql: true                                # 是否开启 慢SQL 记录，默认false
           slow-sql-millis: 5000                             # 慢 SQL 的标准，默认 3000，单位：毫秒
           merge-sql: false                                  # 合并多个连接池的监控数据，默认false
-
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   redis:
     # Redis 数据库索引（默认为 0）
     database: 0
