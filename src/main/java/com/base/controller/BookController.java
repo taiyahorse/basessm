@@ -1,6 +1,7 @@
 package com.base.controller;
 
 import com.alibaba.druid.util.StringUtils;
+import com.base.conf.SwitchDataSource;
 import com.base.entity.Book;
 import com.base.entity.ResultDTO;
 import com.base.service.BookService;
@@ -38,6 +39,7 @@ public class BookController {
 
     @GetMapping("/getAllBook")
     @ApiOperation("获取所有书籍")
+    @SwitchDataSource(name = "slave")
     public ResultDTO queryAllBook(){
         List<Book> blist = bookService.queryAllBook();
         return ResultDTO.success(blist);
