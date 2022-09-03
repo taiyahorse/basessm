@@ -95,3 +95,12 @@ logging:
     com.base.service: debug
     com.base.mapper: debug
 
+pagehelper:
+  # 数据库
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  page-size-zero: true
+
+

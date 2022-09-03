@@ -1,7 +1,7 @@
 package com.base.service;
 
 import com.base.entity.Book;
-
+import com.github.pagehelper.Page;
 import java.util.List;
 
 public interface BookService {
@@ -24,5 +24,7 @@ public interface BookService {
     <T> List queryAllBookByParam(T t);
 
     <T> List queryAllBook();
+
+    <T> Page queryBookForPage(int pageNo, int pageSize, T t);
 
 }

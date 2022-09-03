@@ -68,4 +68,14 @@
     <select id="queryAllBook" resultType="com.base.entity.Book">
         select id,name,author from t_book
     </select>
+
+    <select id="queryBookForPage" resultType="com.base.entity.Book">
+        select id,name,author from t_book where 1=1
+        <if test="name!=null">
+            and name=#{name}
+        </if>
+        <if test="author!=null">
+            and author=#{author}
+        </if>
+    </select>
 </mapper>

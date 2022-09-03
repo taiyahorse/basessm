@@ -3,6 +3,8 @@ package com.base.service.impl;
 import com.base.entity.Book;
 import com.base.mapper.BookMapper;
 import com.base.service.BookService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,5 +64,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public <T> List queryAllBook() {
         return bookMapper.queryAllBook();
+    }
+
+    @Override
+    public <T> Page queryBookForPage(int pageNo, int pageSize, T t) {
+        PageHelper.startPage(pageNo,pageSize);
+        Page<Book> list = bookMapper.queryBookForPage(t);
+        return list;
     }
 }

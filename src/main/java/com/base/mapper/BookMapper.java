@@ -1,6 +1,8 @@
 package com.base.mapper;
 
 import com.base.entity.Book;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -28,4 +30,6 @@ public interface BookMapper {
     <T> List queryAllBookByParam(T t);
 
     <T> List queryAllBook();
+
+    <T> Page queryBookForPage(T t);
 }

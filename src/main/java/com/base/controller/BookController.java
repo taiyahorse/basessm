@@ -5,6 +5,7 @@ import com.base.conf.SwitchDataSource;
 import com.base.entity.Book;
 import com.base.entity.ResultDTO;
 import com.base.service.BookService;
+import com.github.pagehelper.Page;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -49,5 +50,20 @@ public class BookController {
         List<Book> blist = bookService.queryAllBook();
         logger.info("success  all  query");
         return ResultDTO.success(blist);
+    }
+
+    @GetMapping("/queryBookForPage")
+    @ApiOperation("获取书籍，带分页")
+    @SwitchDataSource(name = "slave")
+    public ResultDTO  queryBookForPage(String name,String author){
+        Book book = new Book();
+        if(!StringUtils.isEmpty(name))
+            book.setName(name);
+        if(!StringUtils.isEmpty(author)){
+            book.setAuthor(author);
+        }
+        Page<Book> bookList = bookService.queryBookForPage(1,2,book);
+        return ResultDTO.success(bookList);
+
     }
 }
