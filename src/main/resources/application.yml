@@ -84,3 +84,14 @@ mybatis:
     # 开启驼峰uName自动映射到u_name
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  #logging.config是用来指定项目启动的时候，读取哪个配置文件，这里指定的是日志配置文件，即子module项目根路径下的 logback.xml文件，该文件是日志的主要配置信息。
+  config: classpath:logback.xml
+  # level用来配置指定包的路径下应用程序的日志记录，及其日志级别。
+  level:
+    root: info
+    com.base.controller: trace
+    com.base.service: debug
+    com.base.mapper: debug
+

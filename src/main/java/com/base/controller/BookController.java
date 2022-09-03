@@ -7,6 +7,8 @@ import com.base.entity.ResultDTO;
 import com.base.service.BookService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,8 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/book")
 public class BookController {
+
+    private Logger logger = LoggerFactory.getLogger(BookController.class);
 
     @Resource
     private BookService bookService;
@@ -41,7 +45,9 @@ public class BookController {
     @ApiOperation("获取所有书籍")
     @SwitchDataSource(name = "slave")
     public ResultDTO queryAllBook(){
+        logger.info("start  query  all book");
         List<Book> blist = bookService.queryAllBook();
+        logger.info("success  all  query");
         return ResultDTO.success(blist);
     }
 }
