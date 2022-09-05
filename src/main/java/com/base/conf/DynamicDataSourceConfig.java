@@ -17,22 +17,22 @@ import java.util.Map;
 public class DynamicDataSourceConfig {
     @Bean
     @ConfigurationProperties("spring.datasource.druid.master")
-    public DataSource wglMasterDataSource(){
+    public DataSource masterDataSource(){
         return DruidDataSourceBuilder.create().build();
     }
 
     @Bean
     @ConfigurationProperties("spring.datasource.druid.slave")
-    public DataSource  wglSlaveDataSource(){
+    public DataSource  slaveDataSource(){
         return DruidDataSourceBuilder.create().build();
     }
 
     @Bean
     @Primary
-    public DynamicDataSource dataSource(DataSource wglMasterDataSource, DataSource wglSlaveDataSource) {
+    public DynamicDataSource dataSource(DataSource masterDataSource, DataSource slaveDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put("master",wglMasterDataSource);
-        targetDataSources.put("slave", wglSlaveDataSource);
-        return new DynamicDataSource(wglMasterDataSource, targetDataSources);
+        targetDataSources.put("master",masterDataSource);
+        targetDataSources.put("slave", slaveDataSource);
+        return new DynamicDataSource(masterDataSource, targetDataSources);
     }
 }
